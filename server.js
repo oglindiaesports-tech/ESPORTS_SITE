@@ -84,6 +84,10 @@ app.get('/api/team/:code', async (req, res) => {
 
 // ================= STATIC VIEWS =================
 
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'register.html'));
+});
+
 app.get('/payment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'payment.html'));
 });
