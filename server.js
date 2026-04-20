@@ -15,12 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ Serve static frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Health check (IMPORTANT for Railway)
+// ✅ Health check (for Railway)
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// ✅ Database init (non-blocking)
+// ✅ Database init
 (async () => {
   try {
     await db.ensureTables();
@@ -30,15 +30,10 @@ app.get('/health', (req, res) => {
   }
 })();
 
-// ✅ Homepage
+// ❌ REMOVE old "/" sendFile
+// ✅ Instead redirect to static file
 app.get('/', (req, res) => {
-  const filePath = path.join(__dirname, 'public', 'index.html');
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      console.error('❌ Error sending index.html:', err);
-      res.status(500).send('Server error');
-    }
-  });
+  res.redirect('/index.html');
 });
 
 // ================= API ROUTES =================
@@ -93,6 +88,11 @@ app.get('/payment', (req, res) => {
 
 app.get('/success', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'success.html'));
+});
+
+// ✅ Fallback route (VERY IMPORTANT)
+app.get('*', (req, res) => {
+  res.redirect('/index.html');
 });
 
 // ================= START SERVER =================
