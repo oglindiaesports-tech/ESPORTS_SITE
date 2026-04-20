@@ -12,10 +12,15 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Serve static frontend files
+// ✅ Serve static frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Database init (safe)
+// ✅ Health check (IMPORTANT for Railway)
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+// ✅ Database init (non-blocking)
 (async () => {
   try {
     await db.ensureTables();
@@ -25,9 +30,15 @@ app.use(express.static(path.join(__dirname, 'public')));
   }
 })();
 
-// ✅ Homepage (loads index.html)
+// ✅ Homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const filePath = path.join(__dirname, 'public', 'index.html');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('❌ Error sending index.html:', err);
+      res.status(500).send('Server error');
+    }
+  });
 });
 
 // ================= API ROUTES =================
@@ -55,11 +66,8 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/confirm-payment', async (req, res) => {
   try {
     const { teamId } = req.body;
-
     const result = await db.confirmPayment(teamId);
-
     res.json({ success: true, uniqueCode: result.unique_code });
-
   } catch (err) {
     console.error('Payment error:', err);
     res.status(500).json({ error: 'Confirmation failed' });
@@ -69,13 +77,8 @@ app.post('/api/confirm-payment', async (req, res) => {
 app.get('/api/team/:code', async (req, res) => {
   try {
     const team = await db.getTeamByCode(req.params.code);
-
-    if (!team) {
-      return res.status(404).json({ error: 'Team not found' });
-    }
-
+    if (!team) return res.status(404).json({ error: 'Team not found' });
     res.json(team);
-
   } catch (err) {
     console.error('Fetch team error:', err);
     res.status(500).json({ error: 'Server error' });
@@ -105,9 +108,4 @@ process.on('uncaughtException', (err) => {
 
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);
-});
-
-process.on('SIGTERM', () => {
-  console.log('Shutting down...');
-  process.exit(0);
 });
