@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Complete - Odisha Gaming League</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #05050a;
+            color: #eeeef8;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .heading-gradient {
+            background: linear-gradient(90deg, #00f5ff, #a855f7, #00f5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .unique-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5rem;
+            color: #00f5ff;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f5ff, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            animation: scale 0.5s ease-out;
+        }
+        @keyframes scale {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="bg-[#05050a]/80 backdrop-blur-sm border-b-[#00f5ff] border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center gap-2">
+                <img src="https://via.placeholder.com/40x40/00f5ff/05050a?text=OGL" alt="OGL Logo" class="h-8">
+                <span class="text-[#00f5ff] font-[Orbitron] font-bold text-xl">OGL</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-2xl mx-auto px-4 py-16 text-center">
+        <div class="checkmark mb-8">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-bold heading-gradient mb-4">Registration Complete!</h1>
+        
+        <p class="text-xl text-[#eeeef8] mb-8">Congratulations! Your team has been registered for the Free Fire Tournament.</p>
+
+        <div class="bg-[#05050a]/50 border-2 border-[#00f5ff]/30 rounded-xl p-8 mb-8">
+            <p class="text-[#eeeef8] mb-2">Your Unique Team Code</p>
+            <p class="unique-code" id="uniqueCode">XXXXXXXXXXXXXXXX</p>
+            <p class="text-sm text-[#eeeef8] mt-4 opacity-70">Save this code - you'll need it to participate in the tournament</p>
+        </div>
+
+        <div class="bg-[#05050a]/50 border border-[#00f5ff]/20 rounded-xl p-6 mb-8 text-left">
+            <h3 class="text-lg font-bold heading-gradient mb-4">Team Details</h3>
+            <div class="space-y-2 text-sm">
+                <p><span class="text-[#00f5ff]">Team Name:</span> <span id="teamName" class="text-[#eeeef8]">-</span></p>
+                <p><span class="text-[#00f5ff]">Captain:</span> <span id="captainIgn" class="text-[#eeeef8]">-</span></p>
+                <p><span class="text-[#00f5ff]">Players:</span> <span id="playerCount" class="text-[#eeeef8]">-</span></p>
+            </div>
+        </div>
+
+        <div class="bg-[#05050a]/50 border border-[#00f5ff]/20 rounded-xl p-6 mb-8 text-left">
+            <h3 class="text-lg font-bold heading-gradient mb-4">Tournament Details</h3>
+            <div class="space-y-2 text-sm">
+                <p><span class="text-[#00f5ff]">Date:</span> <span class="text-[#eeeef8]">26th April 2026</span></p>
+                <p><span class="text-[#00f5ff]">Time:</span> <span class="text-[#eeeef8]">6:00 PM onwards</span></p>
+                <p><span class="text-[#00f5ff]">Game:</span> <span class="text-[#eeeef8]">Free Fire</span></p>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <button onclick="copyCode()" class="w-full bg-[#05050a]/50 border border-[#00f5ff]/20 hover:border-[#00f5ff]/50 text-[#eeeef8] py-3 px-6 rounded-xl transition-all">
+                📋 Copy Team Code
+            </button>
+            
+            <a href="https://discord.gg/8vbnfgDu" class="block w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-3 px-6 rounded-xl transition-all font-bold">
+                Join Discord for Updates
+            </a>
+        </div>
+
+        <p id="copyMessage" class="text-green-400 mt-4 hidden">Code copied to clipboard!</p>
+    </main>
+
+    <footer class="border-t border-[#00f5ff]/20 py-8 text-center">
+        <p class="text-[#eeeef8] text-sm">&copy; 2026 Odisha Gaming League. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get('teamId');
+        const uniqueCode = sessionStorage.getItem('uniqueCode');
+
+        if (!teamId || !uniqueCode) {
+            window.location.href = '/';
+        }
+
+        document.getElementById('uniqueCode').textContent = uniqueCode;
+
+        fetch('/api/team/' + uniqueCode)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('teamName').textContent = data.team_name;
+                document.getElementById('captainIgn').textContent = data.captain_ign;
+                
+                let players = [data.captain_ign];
+                if (data.player2_ign) players.push(data.player2_ign);
+                if (data.player3_ign) players.push(data.player3_ign);
+                if (data.player4_ign) players.push(data.player4_ign);
+                if (data.player5_ign) players.push(data.player5_ign);
+                
+                document.getElementById('playerCount').textContent = players.length + ' players';
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            });
+
+        function copyCode() {
+            navigator.clipboard.writeText(uniqueCode).then(() => {
+                const msg = document.getElementById('copyMessage');
+                msg.classList.remove('hidden');
+                setTimeout(() => msg.classList.add('hidden'), 2000);
+            });
+        }
+    </script>
+</body>
+</html>

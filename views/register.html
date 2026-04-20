@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Free Fire Tournament | Odisha Gaming League</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            background-color: #05050a;
+            color: #eeeef8;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .heading-gradient {
+            background: linear-gradient(90deg, #00f5ff, #a855f7, #00f5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background-color: #00f5ff;
+            color: #05050a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(90deg, #a855f7, #00f5ff, #a855f7);
+            border-radius: 9999px;
+            z-index: -1;
+        }
+        .btn-primary:hover {
+            background-color: #00cce6;
+            transform: translateY(-2px);
+        }
+        input {
+            background-color: rgba(5, 5, 10, 0.5);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            color: #eeeef8;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00f5ff;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+        }
+        input::placeholder {
+            color: #eeeef8;
+            opacity: 0.5;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00f5ff;
+            font-weight: 500;
+        }
+        .error {
+            color: #ff4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="bg-[#05050a]/80 backdrop-blur-sm border-b-[#00f5ff] border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="https://via.placeholder.com/40x40/00f5ff/05050a?text=OGL" alt="OGL Logo" class="h-8">
+                    <span class="text-[#00f5ff] font-[Orbitron] font-bold text-xl">OGL</span>
+                </a>
+                <a href="https://discord.gg/8vbnfgDu" class="text-[#eeeef8] hover:text-[#00f5ff]">Join Discord</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-12 text-center border-b border-[#00f5ff]/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <span class="inline-block bg-[#00f5ff]/20 text-[#00f5ff] px-4 py-1 rounded-full text-sm font-medium mb-4">26th April 2026</span>
+            <h1 class="text-4xl md:text-5xl font-bold heading-gradient mb-2">Free Fire Tournament</h1>
+            <p class="text-xl text-[#eeeef8]">Register Your Team</p>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 py-12">
+        <form id="registration-form" class="space-y-6">
+            <div>
+                <label for="teamName">Team Name *</label>
+                <input type="text" id="teamName" name="teamName" placeholder="Enter your team name" required>
+                <p class="error hidden" id="teamNameError"></p>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold heading-gradient">Player Details</h3>
+                
+                <div>
+                    <label for="captainIgn">Player 1 (Captain's IGN) *</label>
+                    <input type="text" id="captainIgn" name="captainIgn" placeholder="In-Game Name" required>
+                    <p class="error hidden" id="captainIgnError"></p>
+                </div>
+
+                <div>
+                    <label for="player2Ign">Player 2 (IGN) *</label>
+                    <input type="text" id="player2Ign" name="player2Ign" placeholder="In-Game Name" required>
+                    <p class="error hidden" id="player2IgnError"></p>
+                </div>
+
+                <div>
+                    <label for="player3Ign">Player 3 (IGN) *</label>
+                    <input type="text" id="player3Ign" name="player3Ign" placeholder="In-Game Name" required>
+                    <p class="error hidden" id="player3IgnError"></p>
+                </div>
+
+                <div>
+                    <label for="player4Ign">Player 4 (IGN) *</label>
+                    <input type="text" id="player4Ign" name="player4Ign" placeholder="In-Game Name" required>
+                    <p class="error hidden" id="player4IgnError"></p>
+                </div>
+
+                <div>
+                    <label for="player5Ign">Player 5 (IGN) - Optional</label>
+                    <input type="text" id="player5Ign" name="player5Ign" placeholder="In-Game Name (Optional)">
+                </div>
+            </div>
+
+            <div>
+                <label for="contactNumber">Contact Number *</label>
+                <input type="tel" id="contactNumber" name="contactNumber" placeholder="+91XXXXXXXXXX" required>
+                <p class="error hidden" id="contactNumberError"></p>
+            </div>
+
+            <div class="bg-[#05050a]/50 border border-[#00f5ff]/20 rounded-xl p-6">
+                <p class="text-[#00f5ff] font-bold mb-2">Tournament Details</p>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p class="text-[#00f5ff]">Entry Fee</p>
+                        <p class="text-xl font-bold">₹39</p>
+                    </div>
+                    <div>
+                        <p class="text-[#00f5ff]">Prize Pool</p>
+                        <p class="text-xl font-bold">₹500</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary w-full text-center">
+                Proceed to Payment
+            </button>
+        </form>
+    </main>
+
+    <footer class="border-t border-[#00f5ff]/20 py-8 text-center">
+        <p class="text-[#eeeef8] text-sm">&copy; 2026 Odisha Gaming League. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('registration-form');
+        
+        function showError(fieldId, message) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.remove('hidden');
+            }
+        }
+
+        function hideError(fieldId) {
+            const errorEl = document.getElementById(fieldId + 'Error');
+            if (errorEl) {
+                errorEl.classList.add('hidden');
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const teamName = document.getElementById('teamName').value.trim();
+            const captainIgn = document.getElementById('captainIgn').value.trim();
+            const player2Ign = document.getElementById('player2Ign').value.trim();
+            const player3Ign = document.getElementById('player3Ign').value.trim();
+            const player4Ign = document.getElementById('player4Ign').value.trim();
+            const player5Ign = document.getElementById('player5Ign').value.trim();
+            const contactNumber = document.getElementById('contactNumber').value.trim();
+
+            let hasError = false;
+
+            if (!teamName) {
+                showError('teamName', 'Team name is required');
+                hasError = true;
+            } else {
+                hideError('teamName');
+            }
+
+            if (!captainIgn) {
+                showError('captainIgn', "Captain's IGN is required");
+                hasError = true;
+            } else {
+                hideError('captainIgn');
+            }
+
+            if (!player2Ign) {
+                showError('player2Ign', 'Player 2 IGN is required');
+                hasError = true;
+            } else {
+                hideError('player2Ign');
+            }
+
+            if (!player3Ign) {
+                showError('player3Ign', 'Player 3 IGN is required');
+                hasError = true;
+            } else {
+                hideError('player3Ign');
+            }
+
+            if (!player4Ign) {
+                showError('player4Ign', 'Player 4 IGN is required');
+                hasError = true;
+            } else {
+                hideError('player4Ign');
+            }
+
+            if (!contactNumber) {
+                showError('contactNumber', 'Contact number is required');
+                hasError = true;
+            } else {
+                hideError('contactNumber');
+            }
+
+            if (hasError) return;
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registering...';
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        teamName,
+                        captainIgn,
+                        player2Ign,
+                        player3Ign,
+                        player4Ign,
+                        player5Ign,
+                        contactNumber
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    sessionStorage.setItem('teamId', data.teamId);
+                    sessionStorage.setItem('uniqueCode', data.uniqueCode);
+                    window.location.href = '/payment?teamId=' + data.teamId;
+                } else {
+                    alert(data.error || 'Registration failed. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Proceed to Payment';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Proceed to Payment';
+            }
+        });
+    </script>
+</body>
+</html>

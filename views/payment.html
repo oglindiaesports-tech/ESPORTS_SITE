@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Free Fire Tournament | Odisha Gaming League</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    body { background-color: #05050a; color: #eeeef8; font-family: 'Rajdhani', sans-serif; }
+    h1, h2, h3 { font-family: 'Orbitron', sans-serif; }
+    .heading-gradient { background: linear-gradient(90deg, #00f5ff, #a855f7, #00f5ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .btn-primary { background-color: #00f5ff; color: #05050a; padding: 0.75rem 1.5rem; border-radius: 9999px; font-family: 'Orbitron', sans-serif; font-weight: 700; border: 2px solid transparent; position: relative; z-index: 1; }
+    .btn-primary::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(90deg, #a855f7, #00f5ff, #a855f7); border-radius: 9999px; z-index: -1; }
+    .btn-primary:hover { background-color: #00cce6; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    #qrcode canvas { border-radius: 12px; padding: 16px; background: white; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="bg-[#05050a]/80 backdrop-blur-sm border-b-[#00f5ff] border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <img src="https://via.placeholder.com/40x40/00f5ff/05050a?text=OGL" alt="OGL Logo" class="h-8">
+          <span class="text-[#00f5ff] font-[Orbitron] font-bold text-xl">OGL</span>
+        </a>
+        <span class="text-sm text-[#eeeef8]">Step 2 of 2</span>
+      </div>
+    </div>
+  </nav>
+
+  <header class="py-8 text-center border-b border-[#00f5ff]/20">
+    <div class="max-w-7xl mx-auto px-4">
+      <h1 class="text-3xl md:text-4xl font-bold heading-gradient mb-2">Complete Payment</h1>
+      <p class="text-lg text-[#eeeef8]">Scan & Pay via UPI</p>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto px-4 py-12">
+    <div class="bg-[#05050a]/50 border border-[#00f5ff]/20 rounded-xl p-6 mb-6">
+      <div class="flex justify-between items-center mb-2 pb-4 border-b border-[#00f5ff]/20">
+        <span class="text-[#eeeef8]">Entry Fee</span>
+        <span class="text-2xl font-bold text-[#00f5ff]">₹39</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-[#eeeef8]">Total</span>
+        <span class="text-2xl font-bold heading-gradient">₹39</span>
+      </div>
+    </div>
+
+    <div class="text-center mb-8">
+      <h3 class="text-xl font-bold heading-gradient mb-4">Scan to Pay</h3>
+      <div class="bg-white p-4 rounded-xl inline-block mb-4">
+        <canvas id="qrcode"></canvas>
+      </div>
+      <p class="text-[#eeeef8] text-sm mb-2">Open any UPI app and scan</p>
+      <div class="bg-[#05050a]/50 border border-[#00f5ff]/20 rounded-xl p-4 text-left">
+        <p class="text-[#00f5ff] font-bold mb-1">UPI ID</p>
+        <p class="text-[#eeeef8] text-lg font-mono">mohantysahil31@oksbi</p>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button id="confirmBtn" class="btn-primary w-full" onclick="confirmPayment()">I Have Paid - Confirm Registration</button>
+      <p id="successMsg" class="hidden text-green-400 mt-4">Payment confirmed! Redirecting...</p>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#00f5ff]/20 py-8 text-center">
+    <p class="text-[#eeeef8] text-sm">&copy; 2026 Odisha Gaming League. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const UPI_ID = 'mohantysahil31@oksbi';
+    const AMOUNT = '39';
+    const NOTE = 'OGL_FreeFire_Tournament';
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const teamId = urlParams.get('teamId');
+    if (!teamId) window.location.href = '/';
+
+    const upiLink = `upi://pay?pa=${UPI_ID}&pn=Odisha%20Gaming%20League&am=${AMOUNT}&tn=${NOTE}`;
+    QRCode.toCanvas(document.getElementById('qrcode'), upiLink, { width: 200, margin: 2 }, console.error);
+
+    async function confirmPayment() {
+      const btn = document.getElementById('confirmBtn');
+      const successMsg = document.getElementById('successMsg');
+      btn.disabled = true;
+      btn.textContent = 'Confirming...';
+      
+      try {
+        const res = await fetch('/api/confirm-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ teamId })
+        });
+        const data = await res.json();
+        if (data.success) {
+          successMsg.classList.remove('hidden');
+          btn.textContent = 'Confirmed!';
+          setTimeout(() => window.location.href = `/success?teamId=${teamId}`, 1500);
+        } else {
+          alert(data.error || 'Confirmation failed');
+          btn.disabled = false;
+          btn.textContent = 'I Have Paid - Confirm Registration';
+        }
+      } catch (e) {
+        alert('Something went wrong');
+        btn.disabled = false;
+        btn.textContent = 'I Have Paid - Confirm Registration';
+      }
+    }
+  </script>
+</body>
+</html>

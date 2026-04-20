@@ -1,0 +1,19 @@
+{
+  "name": "ogl-registration",
+  "version": "1.0.0",
+  "description": "Odisha Gaming League Tournament Registration System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,418 @@
+/* Custom styles for Odisha Gaming League Website */
+
+/* Base styles */
+body {
+    background-color: #05050a;
+    color: #eeeef8;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* Custom background support */
+.video-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    overflow: hidden;
+}
+
+.video-bg-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 10, 0.7); /* Dark overlay for readability */
+    z-index: -5;
+}
+
+/* Default background with purple/orange gradient accents */
+.default-bg {
+    background-color: #05050a;
+    background-image: 
+        radial-gradient(ellipse at 20% 20%, #a855f710 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, #00f5ff10 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 60%, #a855f708 0%, transparent 40%);
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Gradient text heading - orange to purple like buttons */
+.heading-gradient {
+    background: linear-gradient(90deg, #00f5ff, #a855f7, #00f5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+}
+
+/* Alternative purple to orange gradient */
+.heading-gradient-reverse {
+    background: linear-gradient(90deg, #a855f7, #00f5ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+}
+
+/* Section background colors - alternating purple/orange scheme */
+.section-purple {
+    background-color: #a855f7/10; /* Purple with 10% opacity */
+    border-top: 1px solid #a855f7/20;
+    border-bottom: 1px solid #a855f7/20;
+}
+
+.section-orange {
+    background-color: #00f5ff/10; /* Orange with 10% opacity */
+    border-top: 1px solid #00f5ff/20;
+    border-bottom: 1px solid #00f5ff/20;
+}
+
+/* Button with cyan background and purple gradient border */
+.btn-orange {
+    background-color: #00f5ff;
+    color: #05050a;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-orange::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, #a855f7, #00f5ff, #a855f7);
+    border-radius: 9999px;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.btn-orange:hover {
+    background-color: #00cce6;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(0, 245, 255, 0.5);
+}
+
+/* Custom animations */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    display: inline-flex;
+    animation: marquee 15s linear infinite;
+}
+
+.animate-marquee span {
+    white-space: nowrap;
+}
+
+/* Image placeholder styles */
+img[alt="BGMI"],
+img[alt="Free Fire"],
+img[alt="Valorant"],
+img[alt="CS2"] {
+    background-color: #05050a/50;
+    border: 1px solid #00f5ff/20;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* Button hover effects - orange hover */
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+/* Card hover effects - orange hover */
+.hover-card {
+    transition: all 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -4px rgba(255, 140, 66, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.25rem;
+    }
+    
+    .hero-section p {
+        font-size: 1.25rem;
+    }
+}
+
+/* Dark mode enhancements */
+.dark-mode-toggle {
+    background-color: #05050a/80;
+    border: 1px solid #00f5ff/30;
+    color: #00f5ff;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background-color: #00f5ff/20;
+    color: #00f5ff;
+    transform: scale(1.05);
+}
+
+/* Override default button hover colors */
+.bg-\[#00f5ff\]:hover:bg-\[#00cce6\],
+.bg-\[\#00f5ff\]\/20:hover:bg-\[\#00f5ff\]\/40 {
+    background-color: #00f5ff !important;
+}
+
+/* Keep text colors as they are for proper contrast */
+
+/* Mobile Navigation Optimizations */
+.mobile-menu-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    width: 48px;
+    height: 48px;
+    background: rgba(5, 5, 10, 0.9);
+    border: 1px solid #00f5ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(0, 245, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.mobile-menu-btn span {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background: #00f5ff;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn span::before,
+.mobile-menu-btn span::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: #00f5ff;
+    transition: all 0.3s ease;
+    left: 0;
+}
+
+.mobile-menu-btn span::before {
+    top: -8px;
+}
+
+.mobile-menu-btn span::after {
+    top: 8px;
+}
+
+.mobile-menu-btn.active span {
+    background: transparent;
+}
+
+.mobile-menu-btn.active span::before {
+    top: 0;
+    transform: rotate(45deg);
+    background: #a855f7;
+}
+
+.mobile-menu-btn.active span::after {
+    top: 0;
+    transform: rotate(-45deg);
+    background: #a855f7;
+}
+
+/* Hide default nav hamburger on mobile */
+@media (max-width: 768px) {
+    nav .mobile-menu-button {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+}
+
+/* Mobile menu slide-in */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    background: rgba(5, 5, 10, 0.98);
+    border-left: 1px solid #00f5ff;
+    z-index: 99;
+    transition: right 0.3s ease;
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    padding-top: 80px;
+}
+
+.mobile-nav.active {
+    right: 0;
+}
+
+.mobile-nav a {
+    display: block;
+    padding: 16px 24px;
+    color: #eeeef8;
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.mobile-nav a:hover {
+    background: rgba(0, 245, 255, 0.1);
+    color: #00f5ff;
+    padding-left: 32px;
+}
+
+.mobile-nav a.active {
+    color: #00f5ff;
+    background: rgba(0, 245, 255, 0.1);
+    border-left: 3px solid #a855f7;
+}
+
+.mobile-nav .cta-buttons {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+}
+
+.mobile-nav .cta-buttons .btn-orange {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 16px;
+}
+
+/* Backdrop overlay */
+.mobile-nav-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 98;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.mobile-nav-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile nav header with logo */
+.mobile-nav-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(5, 5, 10, 0.95);
+    border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 101;
+    backdrop-filter: blur(10px);
+}
+
+@media (min-width: 769px) {
+    .mobile-nav-header {
+        display: none;
+    }
+}
+
+.mobile-nav-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mobile-nav-header .logo img {
+    height: 32px;
+}
+
+.mobile-nav-header .logo span {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #00f5ff;
+    font-size: 18px;
+}
+
+/* Padding for fixed mobile header */
+@media (max-width: 768px) {
+    body {
+        padding-top: 64px;
+    }
+}
