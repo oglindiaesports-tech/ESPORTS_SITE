@@ -6,7 +6,6 @@
   <title>Payment - Free Fire Tournament | Odisha Gaming League</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
 
   <style>
     body { background-color: #05050a; color: #eeeef8; font-family: 'Rajdhani', sans-serif; }
@@ -16,7 +15,6 @@
     .btn-primary::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(90deg, #a855f7, #00f5ff, #a855f7); border-radius: 9999px; z-index: -1; }
     .btn-primary:hover { background-color: #00cce6; transform: translateY(-2px); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-    #qrcode canvas { border-radius: 12px; padding: 16px; background: white; }
   </style>
 </head>
 
@@ -45,8 +43,9 @@
     <div class="text-center mb-8">
       <h3 class="text-xl font-bold heading-gradient mb-4">Scan to Pay</h3>
 
+      <!-- ✅ CHANGED: Static QR Image -->
       <div class="bg-white p-4 rounded-xl inline-block mb-4">
-        <canvas id="qrcode"></canvas>
+        <img src="/assets/images/qr.png" alt="UPI QR Code" class="w-52 h-52 mx-auto rounded-xl">
       </div>
 
       <p class="text-[#eeeef8] text-sm mb-2">Open any UPI app and scan</p>
@@ -75,28 +74,12 @@
   </footer>
 
   <script>
-    const UPI_ID = 'mohantysahil31@oksbi';
-    const AMOUNT = '39';
-    const NOTE = 'OGL Free Fire Tournament';
-
     const urlParams = new URLSearchParams(window.location.search);
     const teamId = urlParams.get('teamId');
 
     if (!teamId) {
       window.location.href = '/';
     }
-
-    // ✅ Proper UPI QR format (fixed encoding)
-    const upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent('Odisha Gaming League')}&am=${AMOUNT}&cu=INR&tn=${encodeURIComponent(NOTE)}`;
-
-    QRCode.toCanvas(
-      document.getElementById('qrcode'),
-      upiLink,
-      { width: 200, margin: 2 },
-      function (error) {
-        if (error) console.error(error);
-      }
-    );
 
     async function confirmPayment() {
       const btn = document.getElementById('confirmBtn');
@@ -136,10 +119,3 @@
 
 </body>
 </html>
-        
-    
-
-  
-   
-          
-        
