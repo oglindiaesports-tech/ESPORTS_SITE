@@ -39,6 +39,9 @@ app.post('/api/register', async (req, res) => {
     if (!teamName || !captainIgn || !contactNumber) {
       return res.status(400).json({ error: 'Please fill in all required fields' });
     }
+    if (!/^[0-9]{10}$/.test(contactNumber)) {
+      return res.status(400).json({ error: 'Invalid contact number (must be 10 digits)' });
+    }
 
     const { teamId, uniqueCode } = await db.createTeam({
       teamName, captainIgn, player2Ign, player3Ign, player4Ign, player5Ign, contactNumber
