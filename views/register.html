@@ -133,7 +133,16 @@
 
             <div>
                 <label for="contactNumber">Contact Number *</label>
-                <input type="tel" id="contactNumber" name="contactNumber" placeholder="+91XXXXXXXXXX" required>
+                <input 
+                  type="tel" 
+                  id="contactNumber" 
+                  name="contactNumber" 
+                  placeholder="+91XXXXXXXXXX" 
+                  maxlength="10"
+                  pattern="[0-9]{10}"
+                  oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                  required
+                >
                 <p class="error hidden" id="contactNumberError"></p>
             </div>
 
